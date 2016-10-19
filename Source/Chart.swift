@@ -440,10 +440,15 @@ open class Chart: UIControl {
         lineLayer.frame = self.bounds
         lineLayer.path = path
 
+        let darkGreen  = UIColor(red: 37/255.0, green: 137/255.0, blue: 0/255.0, alpha: 1)
+        //let lightGreen = UIColor(red: 196/255.0, green: 219/255.0, blue: 188/255.0, alpha: 1)
+        let darkRed    = UIColor(red: 245/255.0, green: 88/255.0, blue: 84/255.0, alpha: 1)
+        //let lightRed   = UIColor(red: 250/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
+        
         if isAboveXAxis {
-            lineLayer.strokeColor = series[seriesIndex].colors.above.cgColor
+            lineLayer.strokeColor = darkGreen.cgColor//series[seriesIndex].colors.above.cgColor
         } else {
-            lineLayer.strokeColor = series[seriesIndex].colors.below.cgColor
+            lineLayer.strokeColor = darkRed.cgColor//series[seriesIndex].colors.below.cgColor
         }
         lineLayer.fillColor = nil
         lineLayer.lineWidth = lineWidth
@@ -464,19 +469,36 @@ open class Chart: UIControl {
             area.addLine(to: CGPoint(x: CGFloat(xValues[i]), y: CGFloat(yValues[i])))
         }
         area.addLine(to: CGPoint(x: CGFloat(xValues.last!), y: zero))
+        
         let areaLayer = CAShapeLayer()
         areaLayer.frame = self.bounds
         areaLayer.path = area
         areaLayer.strokeColor = nil
-        if isAboveXAxis {
-            areaLayer.fillColor = series[seriesIndex].colors.above.withAlphaComponent(areaAlphaComponent).cgColor
-        } else {
-            areaLayer.fillColor = series[seriesIndex].colors.below.withAlphaComponent(areaAlphaComponent).cgColor
-        }
         areaLayer.lineWidth = 0
-
-        self.layer.addSublayer(areaLayer)
-
+        
+        let areaGradientLayer = CAGradientLayer()
+        areaGradientLayer.frame = self.bounds
+        areaGradientLayer.mask = areaLayer
+        
+        let darkGreen  = UIColor(red: 37/255.0, green: 137/255.0, blue: 0/255.0, alpha: 1)
+        let lightGreen = UIColor(red: 196/255.0, green: 219/255.0, blue: 188/255.0, alpha: 1)
+        let darkRed    = UIColor(red: 245/255.0, green: 88/255.0, blue: 84/255.0, alpha: 1)
+        let lightRed   = UIColor(red: 250/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
+        
+        if isAboveXAxis {
+            //areaLayer.fillColor = series[seriesIndex].colors.above.withAlphaComponent(areaAlphaComponent).cgColor
+            areaGradientLayer.colors = [darkGreen.cgColor, lightGreen.cgColor]
+            areaGradientLayer.startPoint = CGPoint(x: 0.5, y: 1)
+            areaGradientLayer.endPoint   = CGPoint(x: 0.5, y: 0)
+        } else {
+            //areaLayer.fillColor = series[seriesIndex].colors.below.withAlphaComponent(areaAlphaComponent).cgColor
+            areaGradientLayer.colors = [darkRed.cgColor, lightRed.cgColor]
+            areaGradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+            areaGradientLayer.endPoint   = CGPoint(x: 0.5, y: 1)
+        }
+        
+        self.layer.addSublayer(areaGradientLayer)
+        
         layerStore.append(areaLayer)
     }
 
