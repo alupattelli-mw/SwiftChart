@@ -1,14 +1,16 @@
 PODS:
-  - SwiftChart (0.1.0)
+  - SwiftChart (0.3.0)
 
 DEPENDENCIES:
   - SwiftChart (from `../`)
 
 EXTERNAL SOURCES:
   SwiftChart:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  SwiftChart: d1a042560f66d57ef2ca56263e57a62eb1ff8c66
+  SwiftChart: 1dfc9333acc3a9e359bfa4a41e0e22a9f78eb1df
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 93ae2f69496051cefa65e4c57ed2e648bd3b3e78
+
+COCOAPODS: 1.0.1
