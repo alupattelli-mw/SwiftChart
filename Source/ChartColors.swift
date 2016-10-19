@@ -11,7 +11,7 @@ import UIKit
 Shorthands for various colors to use freely in the charts.
 */
 public struct ChartColors {
-    static func colorFromHex(_ hex: Int) -> UIColor {
+    static private func colorFromHex(_ hex: Int) -> UIColor {
         let red = CGFloat((hex & 0xFF0000) >> 16) / 255.0
         let green = CGFloat((hex & 0xFF00) >> 8) / 255.0
         let blue = CGFloat((hex & 0xFF)) / 255.0

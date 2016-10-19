@@ -74,32 +74,27 @@ class BasicChartViewController: UIViewController, ChartDelegate {
         default: break;
             
         }
-        
-        
     }
     
     // Chart delegate
     
-    func didTouchChart(_ chart: Chart, indexes: Array<Int?>, x: Float, left: CGFloat) {
-        for (seriesIndex, dataIndex) in indexes.enumerated() {
+    func didTouchChart(chart: Chart, indexes: Array<Int?>, x: Float, left: CGFloat) {
+        for (seriesIndex, dataIndex) in indexes.enumerate() {
             if let value = chart.valueForSeries(seriesIndex, atIndex: dataIndex) {
                 print("Touched series: \(seriesIndex): data index: \(dataIndex!); series value: \(value); x-axis value: \(x) (from left: \(left))")
             }
         }
     }
     
-    func didFinishTouchingChart(_ chart: Chart) {
+    func didFinishTouchingChart(chart: Chart) {
         
     }
     
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        // Redraw chart on rotation
-        chart.setNeedsDisplay()
-        
-    }
-    
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        
+//        // Redraw chart on rotation
+//        chart.setNeedsDisplay()
+//        
+//    }
 }

@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1915167E1DB7B486009FA56D /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42396E2E43386D46D34C77B37FCB606 /* Chart.swift */; };
-		1915167F1DB7B488009FA56D /* ChartColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E5174EEAC67209FAB37F9C1B6FA9EC /* ChartColors.swift */; };
-		191516801DB7B48B009FA56D /* ChartSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD70E4832602CA03DDCEA1D94A427BE /* ChartSeries.swift */; };
 		2A2739918952828A2A7B9FE03CE7B635 /* Pods-SwiftChart_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F086CCD65F47E9EB100A237A37BC10CC /* Pods-SwiftChart_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		304AF5F6B49E264EFFD55A068CFF9B39 /* SwiftChart-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C828FAEDC0DED3BB6390C1904EB09A9 /* SwiftChart-dummy.m */; };
 		3AC267D37B4280CCAF976CDA26303C3E /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42396E2E43386D46D34C77B37FCB606 /* Chart.swift */; };
@@ -274,10 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1915167E1DB7B486009FA56D /* Chart.swift in Sources */,
-				191516801DB7B48B009FA56D /* ChartSeries.swift in Sources */,
 				840BA55717823188205E652B87379E25 /* Pods-SwiftChart_Example-dummy.m in Sources */,
-				1915167F1DB7B488009FA56D /* ChartColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

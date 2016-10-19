@@ -23,7 +23,6 @@ class StockChartViewController: UIViewController, ChartDelegate {
         
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         initializeChart()
-        
     }
     
     func initializeChart() {
@@ -45,7 +44,7 @@ class StockChartViewController: UIViewController, ChartDelegate {
             serieData.append(value["close"] as! Float)
             
             // Use only one label for each month
-            let month = Int(dateFormatter.string(from: value["date"] as! Date))!
+            let month = Int(dateFormatter.stringFromDate(value["date"] as! NSDate))!
             let monthAsString:String = dateFormatter.monthSymbols[month - 1] 
             if (labels.count == 0 || labelsAsString.last != monthAsString) {
                 labels.append(Float(i))
@@ -59,29 +58,29 @@ class StockChartViewController: UIViewController, ChartDelegate {
         // Configure chart layout
         
         chart.lineWidth = 0.5
-        chart.labelFont = UIFont.systemFont(ofSize: 12)
+        chart.labelFont = UIFont.systemFontOfSize(12)
         chart.xLabels = labels
         chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
             return labelsAsString[labelIndex]
         }
-        chart.xLabelsTextAlignment = .center
+        chart.xLabelsTextAlignment = .Center
         chart.yLabelsOnRightSide = true
         // Add some padding above the x-axis
-        chart.minY = serieData.min()! - 5
+        chart.minY = serieData.minElement()! - 5
         
         chart.add(series)
         
     }
     // Chart delegate
     
-    func didTouchChart(_ chart: Chart, indexes: Array<Int?>, x: Float, left: CGFloat) {
+    func didTouchChart(chart: Chart, indexes: Array<Int?>, x: Float, left: CGFloat) {
         
         if let value = chart.valueForSeries(0, atIndex: indexes[0]) {
             
-            let numberFormatter = NumberFormatter()
+            let numberFormatter = NSNumberFormatter()
             numberFormatter.minimumFractionDigits = 2
             numberFormatter.maximumFractionDigits = 2
-            label.text = numberFormatter.string(from: NSNumber(value: value))
+            label.text = numberFormatter.stringFromNumber(NSNumber(float: value))
             
             // Align the label to the touch left position, centered
             var constant = labelLeadingMarginInitialConstant + left - (label.frame.width / 2)
@@ -112,9 +111,9 @@ class StockChartViewController: UIViewController, ChartDelegate {
     func getStockValues() -> Array<Dictionary<String, Any>> {
         
         // Read the JSON file
-        let filePath = NSBundle.mainBundle().path(forResource: "AAPL", ofType: "json")!
-        let jsonData = try? NSData(contentsOf: NSURL(fileURLWithPath: filePath))
-        let json: NSDictionary = (try! NSJSONSerialization.jsonObject(with: jsonData!, options: [])) as! NSDictionary
+        let filePath = NSBundle.mainBundle().pathForResource("AAPL", ofType: "json")
+        let jsonData = NSData(contentsOfURL: NSURL(fileURLWithPath: filePath!))
+        let json: NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(jsonData!, options: [])) as! NSDictionary
         let jsonValues = json["quotes"] as! Array<NSDictionary>
         
         // Parse data
@@ -127,17 +126,13 @@ class StockChartViewController: UIViewController, ChartDelegate {
         }
         
         return values
-        
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-        super.viewWillTransition(to: size, with: coordinator)
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
         // Redraw chart on rotation
         chart.setNeedsDisplay()
-        
     }
-    
     
 }
